@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				float: left;
+				list-style-type: none;
+			}
+			span{
+				color: #fff;
+				width: 30px;
+				height: 50px;
+				line-height: 50px;
+				font-size: 36px;
+				cursor: pointer;
+				text-align: center;
+				background-color: rgba(0,0,0,.5);
+			}
+			#box{
+				width: 300px;
+				height: 300px;
+				margin: 0 auto;
+				margin-top: 200px;
+				position: relative;
+				overflow: hidden;
+				border: 10px solid gray;
+			}
+			.lbimg{
+				height: 300px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: .8s;
+			}
+			.lbimg li{
+				width: 300px;
+				height: 300px;
+			}
+			.lbimg li img{
+				width: 300px;
+				height: 300px;
+			}
+			.lbNav{
+				height: 30px;
+				position: absolute;
+				left: 25px;
+				bottom: 20px;
+			}
+			.lbNav li{
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				margin: 10px;
+				background-color: rgba(0,0,0,0.6);
+			}
+			.lbNav li:nth-of-type(1){
+				background-color: #fff;
+			}
+			span:nth-of-type(1){
+				position: absolute;
+				top: 125px;
+				left: 10px;
+			}
+			span:nth-of-type(2){
+				position: absolute;
+				top: 125px;
+				right: 10px;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oBox = document.getElementById("box");
+				var oLbImg = document.getElementsByClassName("lbimg")[0];
+				var oImgLi = oLbImg.getElementsByTagName("li");
+				var oLbNav = document.getElementsByClassName("lbNav")[0];
+				var oLi = oLbNav.getElementsByTagName("li");
+				var oSpan = document.getElementsByTagName("span");
+				var num = null;
+				var index = null;
+				var off = true;
+				var time = setInterval(function(){lb()},1000);
+				var li = document.createElement("li");
+				li.innerHTML = `<img src="img/01.jpg">`;
+				oLbImg.appendChild(li);
+				oLbImg.style.width = oImgLi.length*300+"px";
+				
+				function lb(){
+					if(off){
+						num--
+						if(num < -5){
+							num = 0;
+							oLbImg.style.transition = "none";
+						}else{
+							oLbImg.style.transition = ".8s";
+						}
+					}else if(!off){
+						num++
+						if(num > 0){
+							oLbImg.style.transition = "none";
+							num = -5
+						}else{
+							oLbImg.style.transition = ".8s";
+						}
+					}
+					console.log(num)
+					oLbImg.style.left = num*300+"px";
+					nav(num)
+				}
+				
+				function nav(){
+					for(var i=0; i<oLi.length; i++){
+						oLi[i].style.background = "rgba(0,0,0,.6)";
+					}
+					index = -num
+					if(num <=-5){
+						index = 0
+					}
+					oLi[index].style.background = "#fff";
+				}
+				
+				oBox.onmouseover = function(){
+					clearInterval(time)
+				}
+				oBox.onmouseout = function(){
+					time = setInterval(function(){lb()},1000)
+				}
+				
+				oSpan[0].onclick = function(){
+					off = false;
+					lb(off);
+				}
+				oSpan[1].onclick = function(){
+					off = true;
+					lb(off);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<ul class="lbimg">
+				<li><img src="img/01.jpg"/></li>
+				<li><img src="img/02.jpg"/></li>
+				<li><img src="img/03.jpg"/></li>
+				<li><img src="img/04.jpg"/></li>
+				<li><img src="img/05.jpg"/></li>
+			</ul>
+			<ul class="lbNav">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<span><</span>
+			<span>></span>
+		</div>
+	</body>
+</html>
