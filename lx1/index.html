@@ -77,21 +77,30 @@
 			window.onload = function(){
 				var oBox = document.getElementById("box");
 				var oLbImg = document.getElementsByClassName("lbimg")[0];
-				var oImgLi = oLbImg.getElementsByTagName("li");
 				var oLbNav = document.getElementsByClassName("lbNav")[0];
+				fnli()
+				var oImgLi = oLbImg.getElementsByTagName("li");
 				var oLi = oLbNav.getElementsByTagName("li");
 				var oSpan = document.getElementsByTagName("span");
 				var num = null;
 				var index = null;
 				var off = true;
+				var offNav = true;
 				var time = setInterval(function(){lb()},1000);
 				var li = document.createElement("li");
 				li.innerHTML = `<img src="img/01.jpg">`;
 				oLbImg.appendChild(li);
 				oLbImg.style.width = oImgLi.length*300+"px";
 				
+				function fnli(){
+					for(var i=0; i<5; i++){
+						oLbImg.innerHTML += '<li><img src="img/0'+(i+1)+'.jpg"/></li>';
+						oLbNav.innerHTML += '<li><li>'
+					}
+				}
+				
 				function lb(){
-					if(off){
+					if(off && offNav){
 						num--
 						if(num < -5){
 							num = 0;
@@ -99,7 +108,7 @@
 						}else{
 							oLbImg.style.transition = ".8s";
 						}
-					}else if(!off){
+					}else if(!off && offNav){
 						num++
 						if(num > 0){
 							oLbImg.style.transition = "none";
@@ -108,7 +117,6 @@
 							oLbImg.style.transition = ".8s";
 						}
 					}
-					console.log(num)
 					oLbImg.style.left = num*300+"px";
 					nav(num)
 				}
@@ -117,11 +125,20 @@
 					for(var i=0; i<oLi.length; i++){
 						oLi[i].style.background = "rgba(0,0,0,.6)";
 					}
-					index = -num
+					index = -num;
 					if(num <=-5){
-						index = 0
+						index = 0;
 					}
 					oLi[index].style.background = "#fff";
+				}
+				
+				for(var i=0; i<oLi.length; i++){
+					oLi[i].index = i;
+					oLi[i].onclick = function(){
+						num = -this.index;
+						offNav = false;
+						lb(num)
+					}
 				}
 				
 				oBox.onmouseover = function(){
@@ -133,31 +150,21 @@
 				
 				oSpan[0].onclick = function(){
 					off = false;
-					lb(off);
+					offNav = true;
+					lb(off,offNav);
 				}
 				oSpan[1].onclick = function(){
 					off = true;
-					lb(off);
+					offNav = true;
+					lb(off,offNav);
 				}
 			}
 		</script>
 	</head>
 	<body>
 		<div id="box">
-			<ul class="lbimg">
-				<li><img src="img/01.jpg"/></li>
-				<li><img src="img/02.jpg"/></li>
-				<li><img src="img/03.jpg"/></li>
-				<li><img src="img/04.jpg"/></li>
-				<li><img src="img/05.jpg"/></li>
-			</ul>
-			<ul class="lbNav">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
+			<ul class="lbimg"></ul>
+			<ul class="lbNav"></ul>
 			<span><</span>
 			<span>></span>
 		</div>

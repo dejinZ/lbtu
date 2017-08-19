@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			p{
+				color: gray;
+				height: 30px;
+				line-height: 30px;
+				font-size: 12px;
+			}
+			button{
+				width: 20px;
+				height: 20px;
+				cursor: pointer;	
+				margin-right: 10px;
+			}
+			div{
+				padding-left: 50px;
+			}
+			body>div:nth-of-type(1){
+				display: none;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<p><button>+</button>精品美食</p>
+		<div>
+			<p><button>-</button>风味小吃</p>
+			<div>
+				<p><button>-</button>水煮虾丸</p>
+				<div>
+					<p>香脆水煮虾丸</p>
+					<p>麻辣水煮虾丸</p>
+				</div>
+				<p><button>-</button>美味烧烤</p>
+				<div>
+					<p>烤鸡翅</p>
+					<p>烤韭菜</p>
+				</div>
+			</div>
+			<p><button>-</button>餐桌美食</p>
+			<div>
+				<p><button>-</button>肉食</p>
+				<div>
+					<p>红烧猪蹄</p>
+					<p>清蒸罗非鱼</p>
+				</div>
+				<p><button>-</button>清香素食</p>
+				<div>
+					<p>韭菜炒鸡蛋</p>
+					<p>小炒生菜</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	window.onload = function(){
+		let oBut = document.getElementsByTagName("button");
+		let oDiv = document.getElementsByTagName("div");
+		
+		for(var i=0; i<oBut.length; i++){
+			oBut[i].index = i
+			oBut[i].onclick = function(){
+				if(this.innerText == "+"){
+					oDiv[this.index].style.display = "block";
+					this.innerText = "-";
+				}else{
+					oDiv[this.index].style.display = "none";
+					this.innerText = "+"
+				}
+			}
+		}
+	}
+</script>

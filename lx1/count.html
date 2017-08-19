@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				width: 300px;
+				height: 50px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				padding-left: 30px;
+				background-color: rgba(0,0,0,.5);
+			}
+			.date{
+				width: 300px;
+				height: 50px;
+			}
+			.date li{
+				float: left;
+				width: 25%;
+				text-align: center;
+				list-style-type: none;
+			}
+			.date li span{
+				color: lightgray;
+				height: 50px;
+				line-height: 50px;
+				display: inline-block;
+				padding-right: 30px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div id="box">
+			<ul class="date">
+				<li><span></span>:</li>
+				<li><span></span>:</li>
+				<li><span></span>:</li>
+				<li><span></span></li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script>
+	var oSpan = document.getElementsByTagName("span"); 
+	MyDate()
+	setInterval(function(){
+		MyDate()
+	},1000)
+	
+	function oneTime(i){
+		return i = i<10 ? "0"+i : i;
+	}
+	function towTime(i){
+		if(i<10){i = "0" + i }return i
+	}
+	
+	function MyDate(){
+		var MyDate = new Date;
+		var Dat = MyDate.getDate();
+		var Ho = MyDate.getHours();
+		var Mi = MyDate.getMinutes();
+		var Se = MyDate.getSeconds();
+		oSpan[0].innerText = oneTime(Dat)
+		oSpan[1].innerText = oneTime(Ho)
+		oSpan[2].innerText = oneTime(Mi)
+		oSpan[3].innerText = oneTime(Se)
+	}
+</script>
